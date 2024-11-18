@@ -1,0 +1,17 @@
+release/class.o
+release/enterentrywindow.o
+release/entereventwindow.o
+release/enternotewindow.o
+release/entertaskwindow.o
+release/errorwindow.o
+release/function.o
+release/main.o
+release/mainwindow.o
+release/objects.o
+release/vartion_1_plugin_import.o
+release/moc_enterentrywindow.o
+release/moc_entereventwindow.o
+release/moc_enternotewindow.o
+release/moc_entertaskwindow.o
+release/moc_errorwindow.o
+release/moc_mainwindow.o
