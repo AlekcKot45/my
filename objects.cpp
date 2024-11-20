@@ -6,4 +6,4 @@ std::vector<Task> TaskVector;
 std::vector<Event> EventVector;
 MainWindow* w=nullptr;
 int idGlobal=0;
-QStack<std::string> stackSaveMove;
+MyStack<std::string> stackSaveMove;

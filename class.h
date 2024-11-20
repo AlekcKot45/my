@@ -68,7 +68,7 @@ public:
 };
 
 template <typename T>
-class Stack{
+class MyStack{
 private:
     struct Node{
         T data;
@@ -77,7 +77,7 @@ private:
     };
     std::shared_ptr<Node> topNode;
 public:
-    Stack(): topNode(nullptr){}
+    MyStack(): topNode(nullptr){}
     void push(const T& value){
         auto newNode= std::make_shared<Node>(value);
         newNode->next=topNode;
@@ -90,10 +90,9 @@ public:
         }
         topNode=topNode->next;
     }
-    T peek ()const{
-        if(isEmpty){
-            std::cout<<"Error";
-            return;
+    T peek() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Stack is empty");
         }
         return topNode->data;
     }

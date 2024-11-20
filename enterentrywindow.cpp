@@ -34,6 +34,22 @@ void EnterEntryWindow::on_enterData_clicked()
         w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
         outEntryVectorInMainWindow(EntryVector);
         EnterEntryWindow::close();
+        if (!stackSaveMove.isEmpty()) {
+            std::string stringPeekStack = stackSaveMove.peek();
+            if (stringPeekStack.size() > 1 && stringPeekStack[1] == 'E') {
+                stringPeekStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+                stackSaveMove.pop();
+                stackSaveMove.push(stringPeekStack);
+            } else {
+                std::string stringForStack("1C ");
+                stringForStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+                stackSaveMove.push(stringForStack);
+            }
+        } else {
+            std::string stringForStack("1C ");
+            stringForStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+            stackSaveMove.push(stringForStack);
+        }
     } else { //если нет то вывести окно с шибкой и все
         ErrorWindow errorWindow;
         errorWindow.setModal(true);

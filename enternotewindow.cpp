@@ -30,6 +30,10 @@ void EnterNoteWindow::on_enterData_2_clicked()
         w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Note"));
         outNoteVectorInMainWindow(NoteVector);
         EnterNoteWindow::close();
+        std::string stringForStack("4C ");
+        stringForStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+        stringForStack=stringForStack+" "+enterTag;
+        stackSaveMove.push(stringForStack);
     } else { //если нет то вывести окно с шибкой и все
         ErrorWindow errorWindow;
         errorWindow.setModal(true);

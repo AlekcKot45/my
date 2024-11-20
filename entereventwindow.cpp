@@ -30,6 +30,10 @@ void EnterEventWindow::on_enterData_clicked()
         w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Event"));
         outEventVectorInMainWindow(EventVector);
         EnterEventWindow::close();
+        std::string stringForStack("2C ");
+        stringForStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+        stringForStack=stringForStack+" "+enterPlace;
+        stackSaveMove.push(stringForStack);
     } else { //если нет то вывести окно с шибкой и все
         ErrorWindow errorWindow;
         errorWindow.setModal(true);

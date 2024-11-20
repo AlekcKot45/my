@@ -7,6 +7,8 @@
 #include <QStack>
 
 class MainWindow;
+template<typename T>
+class MyStack;
 
 extern std::vector<Entry> EntryVector;
 extern std::vector<Note> NoteVector;
@@ -14,6 +16,6 @@ extern std::vector<Task> TaskVector;
 extern std::vector<Event> EventVector;
 extern MainWindow* w;
 extern int idGlobal;
-extern QStack<std::string> stackSaveMove;
+extern MyStack<std::string> stackSaveMove;
 
 #endif // OBJECTS_H

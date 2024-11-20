@@ -6,6 +6,10 @@
 #include <QShowEvent>
 #include <QCloseEvent>
 #include <fstream>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <iostream>
+#include <utility>
 #include "objects.h"
 #include "class.h"
 #include "ui_mainwindow.h"
@@ -37,11 +41,14 @@ public:
     void outOneEntry(const Entry& other);
     void outOneNote(const Note& other);
     void outOneTask(const Task& other);
+    bool searchElemForCancel(const Entry& other, const std::string& object);
     void outOneEvent(const Event& other);
     void clearLayout(QVBoxLayout* vLayout);
     void AddButtonDelete(QHBoxLayout* newLayout);
     void outDateTimeText(QHBoxLayout* newLayout, const Entry& other);
     void searchIdInVector(QHBoxLayout* newLayout);
+    std::string enterDateTimeTextInString(const Date& date, const Time& time, const std::string& text);
+    std::string enterDateTimeTextInString(const std::string& date, const std::string& time, const std::string& text);
     Ui::MainWindow* GetUi();
 
 private slots:
@@ -53,6 +60,8 @@ private slots:
     void on_enterTask_clicked();
 
     void on_enterNote_clicked();
+
+    void on_cancelMove_clicked();
 
 protected:
     void showEvent(QShowEvent *event) override;

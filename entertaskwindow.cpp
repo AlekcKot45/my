@@ -29,6 +29,9 @@ void EnterTaskWindow::on_enterData_clicked()
         w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Task"));
         outTaskVectorInMainWindow(TaskVector);
         EnterTaskWindow::close();
+        std::string stringForStack("3C ");
+        stringForStack += w->enterDateTimeTextInString(returnDate(enterDate), returnTime(enterTime), enterText);
+        stackSaveMove.push(stringForStack);
     } else { //если нет то вывести окно с шибкой и все
         ErrorWindow errorWindow;
         errorWindow.setModal(true);
