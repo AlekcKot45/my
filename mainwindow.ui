@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>40</x>
       <y>460</y>
       <width>721</width>
-      <height>80</height>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -137,6 +137,26 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QPushButton" name="search">
+       <property name="text">
+        <string>search</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -145,7 +165,7 @@
       <x>39</x>
       <y>19</y>
       <width>721</width>
-      <height>441</height>
+      <height>498</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -157,13 +177,44 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_Entry"/>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>717</width>
+          <height>83</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Note</string>
        </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_2">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>717</width>
+          <height>83</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>
@@ -174,6 +225,23 @@
        <property name="text">
         <string>Task</string>
        </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_3">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>717</width>
+          <height>83</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>
@@ -188,6 +256,23 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_Event"/>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_4">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>717</width>
+          <height>83</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </item>
     </layout>
    </widget>

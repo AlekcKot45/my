@@ -8,9 +8,11 @@ debug/function.o
 debug/main.o
 debug/mainwindow.o
 debug/objects.o
+debug/search.o
 debug/moc_enterentrywindow.o
 debug/moc_entereventwindow.o
 debug/moc_enternotewindow.o
 debug/moc_entertaskwindow.o
 debug/moc_errorwindow.o
 debug/moc_mainwindow.o
+debug/moc_search.o

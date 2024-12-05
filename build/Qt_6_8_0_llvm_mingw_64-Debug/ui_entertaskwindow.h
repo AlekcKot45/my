@@ -65,7 +65,9 @@ public:
     {
         EnterTaskWindow->setWindowTitle(QCoreApplication::translate("EnterTaskWindow", "Dialog", nullptr));
         enterData->setText(QCoreApplication::translate("EnterTaskWindow", "PushButton", nullptr));
+        date->setPlaceholderText(QCoreApplication::translate("EnterTaskWindow", "yyyy.mm.dd", nullptr));
         label_2->setText(QCoreApplication::translate("EnterTaskWindow", "date", nullptr));
+        time->setPlaceholderText(QCoreApplication::translate("EnterTaskWindow", "hh:mm", nullptr));
         label_3->setText(QCoreApplication::translate("EnterTaskWindow", "text", nullptr));
         label->setText(QCoreApplication::translate("EnterTaskWindow", "time", nullptr));
     } // retranslateUi

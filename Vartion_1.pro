@@ -18,7 +18,8 @@ SOURCES += \
     function.cpp \
     main.cpp \
     mainwindow.cpp \
-    objects.cpp
+    objects.cpp \
+    search.cpp
 
 HEADERS += \
     class.h \
@@ -30,6 +31,7 @@ HEADERS += \
     function.h \
     mainwindow.h \
     objects.h \
+    search.h \
     struct.h
 
 FORMS += \
@@ -38,7 +40,8 @@ FORMS += \
     enternotewindow.ui \
     entertaskwindow.ui \
     errorwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    search.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

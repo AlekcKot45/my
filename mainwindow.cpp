@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -39,6 +40,13 @@ void MainWindow::on_enterNote_clicked()
     EnterNoteWindow enterNoteWindow;
     enterNoteWindow.setModal(true);
     enterNoteWindow.exec();
+}
+
+void MainWindow::on_search_clicked()
+{
+    search search;
+    search.setModal(true);
+    search.exec();
 }
 
 void MainWindow::searchIdInVector(QHBoxLayout* newLayout){
@@ -90,10 +98,16 @@ void MainWindow::AddButtonDelete(QHBoxLayout* newLayout){
 }
 
 void MainWindow::outDateTimeText(QHBoxLayout* newLayout, const Entry& other){
-    std::string date = { std::to_string(other.GetDate().year) + "." + std::to_string(other.GetDate().month) + "." + std::to_string(other.GetDate().day) };
-    QLineEdit* lineDate = new QLineEdit(QString::fromStdString(date));
-    std::string time = { std::to_string(other.GetTime().hour) + ":" + std::to_string(other.GetTime().minute) };
-    QLineEdit* lineTime = new QLineEdit(QString::fromStdString(time));
+    QString date = QString("%1.%2.%3")
+                                .arg(other.GetDate().year)
+                                .arg(other.GetDate().month, 2, 10, QChar('0'))  // Форматируем месяц с ведущими нулями
+                                .arg(other.GetDate().day, 2, 10, QChar('0'));   // Форматируем день с ведущими нулями
+
+    QString time = QString("%1:%2")
+                                .arg(other.GetTime().hour, 2, 10, QChar('0'))  // Форматируем час с ведущими нулями
+                                .arg(other.GetTime().minute, 2, 10, QChar('0')); // Форматируем минуты с ведущими нулями
+    QLineEdit* lineDate = new QLineEdit(date);
+    QLineEdit* lineTime = new QLineEdit(time);
     QLineEdit* lineText = new QLineEdit(QString::fromStdString(other.GetText()));
     newLayout->addWidget(lineDate, 0, Qt::AlignLeft);
     newLayout->addWidget(lineTime, 0, Qt::AlignLeft);
@@ -441,13 +455,13 @@ void MainWindow::clearLayout(QVBoxLayout* vLayout) {
 
 std::pair<QString, QString> enterDateAndTimeInFile(const Entry& entry){
     QString formattedDate = QString("%1.%2.%3")
-        .arg(entry.GetDate().year)
+    .arg(entry.GetDate().year)
         .arg(entry.GetDate().month, 2, 10, QChar('0'))  // Форматируем месяц с ведущими нулями
         .arg(entry.GetDate().day, 2, 10, QChar('0'));   // Форматируем день с ведущими нулями
 
     QString formattedTime = QString("%1:%2")
-        .arg(entry.GetTime().hour, 2, 10, QChar('0'))  // Форматируем час с ведущими нулями
-        .arg(entry.GetTime().minute, 2, 10, QChar('0')); // Форматируем минуты с ведущими нулями
+                                .arg(entry.GetTime().hour, 2, 10, QChar('0'))  // Форматируем час с ведущими нулями
+                                .arg(entry.GetTime().minute, 2, 10, QChar('0')); // Форматируем минуты с ведущими нулями
     return {formattedDate, formattedTime};
 }
 
@@ -514,6 +528,7 @@ void MainWindow::closeEvent(QCloseEvent*) {
 
 
 void MainWindow::showEvent(QShowEvent*) {
+    return;
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
     db.setDatabaseName("postgres");
@@ -550,7 +565,7 @@ void MainWindow::showEvent(QShowEvent*) {
         std::string time = queryTask.value(1).toString().toStdString();
         std::string text = queryTask.value(2).toString().toStdString();
         enterTaskInVector(Task({ std::stoi(date.substr(0, 4)), std::stoi(date.substr(5, 2)), std::stoi(date.substr(8, 2)) },
-                                 { std::stoi(time.substr(0, 2)), std::stoi(time.substr(3, 2)) }, text, ++idGlobal));
+                               { std::stoi(time.substr(0, 2)), std::stoi(time.substr(3, 2)) }, text, ++idGlobal));
     }
     while (queryNote.next()) {
         std::string date = queryNote.value(0).toString().toStdString();
@@ -558,7 +573,7 @@ void MainWindow::showEvent(QShowEvent*) {
         std::string text = queryNote.value(2).toString().toStdString();
         std::string tag = queryNote.value(3).toString().toStdString();
         enterNoteInVector(Note({ std::stoi(date.substr(0, 4)), std::stoi(date.substr(5, 2)), std::stoi(date.substr(8, 2)) },
-                                 { std::stoi(time.substr(0, 2)), std::stoi(time.substr(3, 2)) }, text, ++idGlobal, tag));
+                               { std::stoi(time.substr(0, 2)), std::stoi(time.substr(3, 2)) }, text, ++idGlobal, tag));
     }
 
     QSqlQuery query;
@@ -607,19 +622,7 @@ std::string MainWindow::enterDateTimeTextInString(const Date& date, const Time& 
 
 std::string MainWindow::enterDateTimeTextInString(const std::string& date, const std::string& time, const std::string& text){
     std::string answer;
-    answer=answer+ date.substr(0, 4) + ".";
-    if (std::stoi(date.substr(5, 2)) / 10 == 0)
-        answer += "0";
-    answer=answer+date.substr(5, 2)+".";
-    if (std::stoi(date.substr(8, 2)) / 10 == 0)
-        answer += "0";
-    answer= answer+ date.substr(8, 2) + " ";
-    if (std::stoi(time.substr(0, 2)) / 10 == 0)
-        answer +="0";
-    answer= answer+time.substr(0, 2) + ":";
-    if (std::stoi(time.substr(3, 2)) / 10 == 0)
-        answer += "0";
-    answer= answer+ time.substr(3, 2) + " ";
+    answer=date.substr(0, 4) + "." + date.substr(5, 2)+"." + date.substr(8, 2) + " " + time.substr(0, 2) + ":" +time.substr(3, 2) + " ";
     if (text.size() / 10 == 0)
         answer += "0";
     answer= answer+ std::to_string(text.size()) + " ";
@@ -638,96 +641,94 @@ void MainWindow::on_cancelMove_clicked()
 {
     try {
         std::string object = stackSaveMove.peek();
-    stackSaveMove.pop();
-    std::cout<<"\n"<<object<<"\n";
-    switch(object[0]){
-    case '1':                                  //Entry
-        if(object[1]=='D'){
-            enterEntryInVector(Entry({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
-                                     { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
-            w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
-            outEntryVectorInMainWindow(EntryVector);
-            break;
-        } else if(object[1]=='E'){
-            for(size_t i=0; i!=EntryVector.size(); ++i){
-                if (EntryVector[i].GetDate().year==std::stoi(object.substr(23+std::stoi(object.substr(20, 2)), 4)) && EntryVector[i].GetDate().month==std::stoi(object.substr(28+std::stoi(object.substr(20, 2)), 2)) && EntryVector[i].GetDate().day==std::stoi(object.substr(31+std::stoi(object.substr(20, 2)), 2))
-                    && EntryVector[i].GetTime().hour==std::stoi(object.substr(34+std::stoi(object.substr(20, 2)))) && EntryVector[i].GetTime().minute==std::stoi(object.substr(37+std::stoi(object.substr(20, 2)), 2)) && EntryVector[i].GetText()==object.substr(43+std::stoi(object.substr(20, 2)))){
-                    EntryVector.erase(EntryVector.begin()+i);
-                    enterEntryInVector(Entry({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
-                                             { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
-                    w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
-                    outEntryVectorInMainWindow(EntryVector);
-                    break;
+        stackSaveMove.pop();
+        std::cout<<"\n"<<object<<"\n";
+        switch(object[0]){
+        case '1':                                  //Entry
+            if(object[1]=='D'){
+                enterEntryInVector(Entry({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
+                                         { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
+                w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
+                outEntryVectorInMainWindow(EntryVector);
+                break;
+            } else if(object[1]=='E'){
+                for(size_t i=0; i!=EntryVector.size(); ++i){
+                    if (EntryVector[i].GetDate().year==std::stoi(object.substr(23+std::stoi(object.substr(20, 2)), 4)) && EntryVector[i].GetDate().month==std::stoi(object.substr(28+std::stoi(object.substr(20, 2)), 2)) && EntryVector[i].GetDate().day==std::stoi(object.substr(31+std::stoi(object.substr(20, 2)), 2))
+                        && EntryVector[i].GetTime().hour==std::stoi(object.substr(34+std::stoi(object.substr(20, 2)))) && EntryVector[i].GetTime().minute==std::stoi(object.substr(37+std::stoi(object.substr(20, 2)), 2)) && EntryVector[i].GetText()==object.substr(43+std::stoi(object.substr(20, 2)))){
+                        EntryVector.erase(EntryVector.begin()+i);
+                        enterEntryInVector(Entry({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
+                                                 { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
+                        w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
+                        outEntryVectorInMainWindow(EntryVector);
+                        break;
+                    }
+                }
+            } else if(object[1]=='C'){
+                for(size_t i=0; i!=EntryVector.size(); ++i){
+                    if(searchElemForCancel(EntryVector[i], object)){
+                        EntryVector.erase(EntryVector.begin()+i);
+                        w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
+                        outEntryVectorInMainWindow(EntryVector);
+                        break;
+                    }
                 }
             }
-        } else if(object[1]=='C'){
-            for(size_t i=0; i!=EntryVector.size(); ++i){
-                if(searchElemForCancel(EntryVector[i], object)){
-                    EntryVector.erase(EntryVector.begin()+i);
-                    w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Entry"));
-                    outEntryVectorInMainWindow(EntryVector);
-                    break;
+        case '2':                                 //Event
+            if(object[1]=='D'){
+                enterEventInVector(Event({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
+                                         { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal, object.substr(24+std::stoi(object.substr(20, 2)))));
+                w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Event"));
+                outEventVectorInMainWindow(EventVector);
+                break;
+            } else if(object[1]=='C'){
+                for(size_t i=0; i!=EventVector.size(); ++i){
+                    if(searchElemForCancel(EventVector[i], object) && EventVector[i].GetPlace()==object.substr(24+std::stoi(object.substr(20, 2)))){
+                        EventVector.erase(EventVector.begin()+i);
+                        w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Event"));
+                        outEventVectorInMainWindow(EventVector);
+                        break;
+                    }
+                }
+            }
+        case '3':                                  //Task
+            if(object[1]=='D'){
+                enterTaskInVector(Task({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
+                                       { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
+                w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Task"));
+                outTaskVectorInMainWindow(TaskVector);
+                break;
+            }
+            else if(object[1]=='C'){
+                for(size_t i=0; i!=TaskVector.size(); ++i){
+                    if(searchElemForCancel(TaskVector[i], object)){
+                        TaskVector.erase(TaskVector.begin()+i);
+                        w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Task"));
+                        outTaskVectorInMainWindow(TaskVector);
+                        break;
+                    }
+                }
+            }
+        case '4':                                     //Note
+            if(object[1]=='D'){
+                enterNoteInVector(Note({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
+                                       { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal, object.substr(24+std::stoi(object.substr(20, 2)))));
+                w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Note"));
+                outNoteVectorInMainWindow(NoteVector);
+                break;
+            } else if(object[1]=='C'){
+                for(size_t i=0; i!=NoteVector.size(); ++i){
+                    if(searchElemForCancel(NoteVector[i], object) && NoteVector[i].GetTag()==object.substr(24+std::stoi(object.substr(20, 2)))){
+                        NoteVector.erase(NoteVector.begin()+i);
+                        w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Note"));
+                        outNoteVectorInMainWindow(NoteVector);
+                        break;
+                    }
                 }
             }
         }
-    case '2':                                 //Event
-        if(object[1]=='D'){
-            enterEventInVector(Event({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
-                                     { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal, object.substr(24+std::stoi(object.substr(20, 2)))));
-            w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Event"));
-            outEventVectorInMainWindow(EventVector);
-            break;
-        } else if(object[1]=='C'){
-            for(size_t i=0; i!=EventVector.size(); ++i){
-                if(searchElemForCancel(EventVector[i], object) && EventVector[i].GetPlace()==object.substr(24+std::stoi(object.substr(20, 2)))){
-                    EventVector.erase(EventVector.begin()+i);
-                    w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Event"));
-                    outEventVectorInMainWindow(EventVector);
-                    break;
-                }
-            }
-        }
-    case '3':                                  //Task
-        if(object[1]=='D'){
-            enterTaskInVector(Task({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
-                                     { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal));
-            w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Task"));
-            outTaskVectorInMainWindow(TaskVector);
-            break;
-        }
-        else if(object[1]=='C'){
-            for(size_t i=0; i!=TaskVector.size(); ++i){
-                if(searchElemForCancel(TaskVector[i], object)){
-                    TaskVector.erase(TaskVector.begin()+i);
-                    w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Task"));
-                    outTaskVectorInMainWindow(TaskVector);
-                    break;
-                }
-            }
-        }
-    case '4':                                     //Note
-        if(object[1]=='D'){
-            enterNoteInVector(Note({ std::stoi(object.substr(3, 4)), std::stoi(object.substr(8, 2)), std::stoi(object.substr(11, 2)) },
-                                     { std::stoi(object.substr(14, 2)), std::stoi(object.substr(17, 2)) }, object.substr(23, std::stoi(object.substr(20, 2))), ++idGlobal, object.substr(24+std::stoi(object.substr(20, 2)))));
-            w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Note"));
-            outNoteVectorInMainWindow(NoteVector);
-            break;
-        } else if(object[1]=='C'){
-            for(size_t i=0; i!=NoteVector.size(); ++i){
-                if(searchElemForCancel(NoteVector[i], object) && NoteVector[i].GetTag()==object.substr(24+std::stoi(object.substr(20, 2)))){
-                    NoteVector.erase(NoteVector.begin()+i);
-                    w->clearLayout(w->GetUi()->verticalLayout->findChild<QVBoxLayout*>("verticalLayout_Note"));
-                    outNoteVectorInMainWindow(NoteVector);
-                    break;
-                }
-            }
-        }
-    }
     }
     catch (const std::runtime_error& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
     return;
 }
-
-

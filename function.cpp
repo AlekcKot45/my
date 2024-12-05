@@ -5,7 +5,7 @@ bool checkTime(const std::string& time){
         if(elem==':')
             continue;
         if(elem>57 || elem <48)
-            throw ExpInputData(time);      // return fause
+            return false;
     }
     if(time[2]!=':' || time.size()!=5)
         return false;
@@ -29,11 +29,11 @@ bool checkDate(const std::string& date){
     return true;
 }
 
-Time returnTime(const std::string& time){
+Time returnTime(const std::string& time){  //hh:mm
     return {std::stoi(time.substr(0, 2)), std::stoi(time.substr(3, 2))};
 }
 
-Date returnDate(const std::string& date){
+Date returnDate(const std::string& date){ //yyyy.mm.dd
     return {std::stoi(date.substr(0, 4)), std::stoi(date.substr(5, 2)), std::stoi(date.substr(8, 2))};
 }
 
@@ -58,182 +58,47 @@ void outEventVectorInMainWindow(const std::vector<Event>& vector){
 }
 
 void enterEntryInVector(const Entry& newEntry){
-    if(EntryVector.empty()){
-        EntryVector.push_back(newEntry);
-    } else{
-        std::vector<Entry>::iterator iter=searchPlaceElemEntry(EntryVector.begin(), EntryVector.end(), newEntry);
-        EntryVector.insert(iter, newEntry);
-    }
+    EntryVector.push_back(newEntry);
+    std::sort(EntryVector.begin(), EntryVector.end(), searchPlaceElem);
 }
 
 void enterNoteInVector(const Note& newNote){
-    if(NoteVector.empty()){
-        NoteVector.push_back(newNote);
-    } else{
-        std::vector<Note>::iterator iter=searchPlaceElemNote(NoteVector.begin(), NoteVector.end(), newNote);
-        NoteVector.insert(iter, newNote);
-    }
+    NoteVector.push_back(newNote);
+    std::sort(NoteVector.begin(), NoteVector.end(), searchPlaceElem);
 }
 
 void enterTaskInVector(const Task& newTask){
-    if(TaskVector.empty()){
-        TaskVector.push_back(newTask);
-    } else{
-        std::vector<Task>::iterator iter=searchPlaceElemTask(TaskVector.begin(), TaskVector.end(), newTask);
-        TaskVector.insert(iter, newTask);
-    }
+    TaskVector.push_back(newTask);
+    std::sort(TaskVector.begin(), TaskVector.end(), searchPlaceElem);
 }
 
 void enterEventInVector(const Event& newEvent){
-    if(EventVector.empty()){
-        EventVector.push_back(newEvent);
-    } else{
-        std::vector<Event>::iterator iter=searchPlaceElemEvent(EventVector.begin(), EventVector.end(), newEvent);
-        EventVector.insert(iter, newEvent);
-    }
+    EventVector.push_back(newEvent);
+    std::sort(EventVector.begin(), EventVector.end(), searchPlaceElem);
 }
 
-std::vector<Entry>::iterator searchPlaceElemEntry(std::vector<Entry>::iterator iter1, std::vector<Entry>::iterator iter2, const Entry& object) {
-    // Поиск по годам
-    while (iter1 != iter2 && object.GetDate().year > iter1->GetDate().year) {
-        ++iter1;
+bool searchPlaceElem(const Entry& other_1, const Entry& other_2) {
+    // Сравниваем по году
+    if (other_1.GetDate().year != other_2.GetDate().year) {
+        return other_1.GetDate().year < other_2.GetDate().year;
     }
 
-    // Если год совпадает, сравниваем месяцы
-    if (iter1 != iter2 && object.GetDate().year == iter1->GetDate().year) {
-        while (iter1 != iter2 && object.GetDate().month > iter1->GetDate().month) {
-            ++iter1;
-        }
-
-        // Если месяц совпадает, сравниваем дни
-        if (iter1 != iter2 && object.GetDate().month == iter1->GetDate().month) {
-            while (iter1 != iter2 && object.GetDate().day > iter1->GetDate().day) {
-                ++iter1;
-            }
-
-            // Если день совпадает, сравниваем часы
-            if (iter1 != iter2 && object.GetDate().day == iter1->GetDate().day) {
-                while (iter1 != iter2 && object.GetTime().hour > iter1->GetTime().hour) {
-                    ++iter1;
-                }
-
-                // Если час совпадает, сравниваем минуты
-                if (iter1 != iter2 && object.GetTime().hour == iter1->GetTime().hour) {
-                    while (iter1 != iter2 && object.GetTime().minute > iter1->GetTime().minute) {
-                        ++iter1;
-                    }
-                }
-            }
-        }
+    // Если года одинаковые, сравниваем по месяцу
+    if (other_1.GetDate().month != other_2.GetDate().month) {
+        return other_1.GetDate().month < other_2.GetDate().month;
     }
 
-    return iter1;
+    // Если месяц одинаковый, сравниваем по дню
+    if (other_1.GetDate().day != other_2.GetDate().day) {
+        return other_1.GetDate().day < other_2.GetDate().day;
+    }
+
+    // Если день одинаковый, сравниваем по часу
+    if (other_1.GetTime().hour != other_2.GetTime().hour) {
+        return other_1.GetTime().hour < other_2.GetTime().hour;
+    }
+
+    // Если час одинаковый, сравниваем по минутам
+    return other_1.GetTime().minute < other_2.GetTime().minute;
 }
-std::vector<Note>::iterator searchPlaceElemNote(std::vector<Note>::iterator iter1, std::vector<Note>::iterator iter2, const Note& object){
-    // Поиск по годам
-    while (iter1 != iter2 && object.GetDate().year > iter1->GetDate().year) {
-        ++iter1;
-    }
 
-    // Если год совпадает, сравниваем месяцы
-    if (iter1 != iter2 && object.GetDate().year == iter1->GetDate().year) {
-        while (iter1 != iter2 && object.GetDate().month > iter1->GetDate().month) {
-            ++iter1;
-        }
-
-        // Если месяц совпадает, сравниваем дни
-        if (iter1 != iter2 && object.GetDate().month == iter1->GetDate().month) {
-            while (iter1 != iter2 && object.GetDate().day > iter1->GetDate().day) {
-                ++iter1;
-            }
-
-            // Если день совпадает, сравниваем часы
-            if (iter1 != iter2 && object.GetDate().day == iter1->GetDate().day) {
-                while (iter1 != iter2 && object.GetTime().hour > iter1->GetTime().hour) {
-                    ++iter1;
-                }
-
-                // Если час совпадает, сравниваем минуты
-                if (iter1 != iter2 && object.GetTime().hour == iter1->GetTime().hour) {
-                    while (iter1 != iter2 && object.GetTime().minute > iter1->GetTime().minute) {
-                        ++iter1;
-                    }
-                }
-            }
-        }
-    }
-
-    return iter1;
-}
-std::vector<Task>::iterator searchPlaceElemTask(std::vector<Task>::iterator iter1, std::vector<Task>::iterator iter2, const Task& object){
-    // Поиск по годам
-    while (iter1 != iter2 && object.GetDate().year > iter1->GetDate().year) {
-        ++iter1;
-    }
-
-    // Если год совпадает, сравниваем месяцы
-    if (iter1 != iter2 && object.GetDate().year == iter1->GetDate().year) {
-        while (iter1 != iter2 && object.GetDate().month > iter1->GetDate().month) {
-            ++iter1;
-        }
-
-        // Если месяц совпадает, сравниваем дни
-        if (iter1 != iter2 && object.GetDate().month == iter1->GetDate().month) {
-            while (iter1 != iter2 && object.GetDate().day > iter1->GetDate().day) {
-                ++iter1;
-            }
-
-            // Если день совпадает, сравниваем часы
-            if (iter1 != iter2 && object.GetDate().day == iter1->GetDate().day) {
-                while (iter1 != iter2 && object.GetTime().hour > iter1->GetTime().hour) {
-                    ++iter1;
-                }
-
-                // Если час совпадает, сравниваем минуты
-                if (iter1 != iter2 && object.GetTime().hour == iter1->GetTime().hour) {
-                    while (iter1 != iter2 && object.GetTime().minute > iter1->GetTime().minute) {
-                        ++iter1;
-                    }
-                }
-            }
-        }
-    }
-
-    return iter1;
-}
-std::vector<Event>::iterator searchPlaceElemEvent(std::vector<Event>::iterator iter1, std::vector<Event>::iterator iter2, const Event& object){
-    // Поиск по годам
-    while (iter1 != iter2 && object.GetDate().year > iter1->GetDate().year) {
-        ++iter1;
-    }
-
-    // Если год совпадает, сравниваем месяцы
-    if (iter1 != iter2 && object.GetDate().year == iter1->GetDate().year) {
-        while (iter1 != iter2 && object.GetDate().month > iter1->GetDate().month) {
-            ++iter1;
-        }
-
-        // Если месяц совпадает, сравниваем дни
-        if (iter1 != iter2 && object.GetDate().month == iter1->GetDate().month) {
-            while (iter1 != iter2 && object.GetDate().day > iter1->GetDate().day) {
-                ++iter1;
-            }
-
-            // Если день совпадает, сравниваем часы
-            if (iter1 != iter2 && object.GetDate().day == iter1->GetDate().day) {
-                while (iter1 != iter2 && object.GetTime().hour > iter1->GetTime().hour) {
-                    ++iter1;
-                }
-
-                // Если час совпадает, сравниваем минуты
-                if (iter1 != iter2 && object.GetTime().hour == iter1->GetTime().hour) {
-                    while (iter1 != iter2 && object.GetTime().minute > iter1->GetTime().minute) {
-                        ++iter1;
-                    }
-                }
-            }
-        }
-    }
-
-    return iter1;
-}

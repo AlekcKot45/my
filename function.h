@@ -29,10 +29,7 @@ void enterEntryInVector(const Entry& newEntry);
 void enterNoteInVector(const Note& newNote);
 void enterTaskInVector(const Task& newTask);
 void enterEventInVector(const Event& newEvent);
-std::vector<Entry>::iterator searchPlaceElemEntry(std::vector<Entry>::iterator iter1, std::vector<Entry>::iterator iter2, const Entry& object);
-std::vector<Note>::iterator searchPlaceElemNote(std::vector<Note>::iterator iter1, std::vector<Note>::iterator iter2, const Note& object);
-std::vector<Task>::iterator searchPlaceElemTask(std::vector<Task>::iterator iter1, std::vector<Task>::iterator iter2, const Task& object);
-std::vector<Event>::iterator searchPlaceElemEvent(std::vector<Event>::iterator iter1, std::vector<Event>::iterator iter2, const Event& object);
+bool searchPlaceElem(const Entry& other_1, const Entry& other_2);
 void outNoteVectorInMainWindow();
 
 #endif // FUNCTION_H

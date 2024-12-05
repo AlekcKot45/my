@@ -13,54 +13,50 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="date">
+  <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>80</y>
-     <width>113</width>
-     <height>28</height>
+     <x>90</x>
+     <y>150</y>
+     <width>63</width>
+     <height>20</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>text</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="time">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>140</y>
+     <x>200</x>
+     <y>100</y>
      <width>113</width>
      <height>28</height>
     </rect>
    </property>
+   <property name="placeholderText">
+    <string>hh:mm</string>
+   </property>
   </widget>
-  <widget class="QLineEdit" name="text">
+  <widget class="QLineEdit" name="date">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>210</y>
+     <x>200</x>
+     <y>60</y>
      <width>113</width>
      <height>28</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QPushButton" name="enterData">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>250</y>
-     <width>83</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PushButton</string>
+   <property name="placeholderText">
+    <string>yyyy.mm.dd</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>80</y>
+     <x>90</x>
+     <y>70</y>
      <width>63</width>
      <height>20</height>
     </rect>
@@ -69,11 +65,11 @@
     <string>date</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>140</y>
+     <x>90</x>
+     <y>110</y>
      <width>63</width>
      <height>20</height>
     </rect>
@@ -82,17 +78,27 @@
     <string>time</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QPushButton" name="enterData">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>140</x>
      <y>220</y>
-     <width>63</width>
-     <height>20</height>
+     <width>83</width>
+     <height>29</height>
     </rect>
    </property>
    <property name="text">
-    <string>text</string>
+    <string>PushButton</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="text">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>140</y>
+     <width>113</width>
+     <height>28</height>
+    </rect>
    </property>
   </widget>
  </widget>

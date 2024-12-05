@@ -68,8 +68,12 @@ public:
 };
 
 template <typename T>
+class IterStack;
+
+template <typename T>
 class MyStack{
 private:
+    friend class IterStack<T>;
     struct Node{
         T data;
         std::shared_ptr<Node> next;
@@ -106,6 +110,37 @@ public:
     }
     bool isEmpty() const{
         return topNode==nullptr;
+    }
+};
+
+template <typename T>
+class IterStack {
+private:
+    typename MyStack<T>::Node* current;
+
+public:
+    IterStack(MyStack<T>& stack) : current(stack.topNode.get()) {}
+
+    bool hasNext() const {
+        return current != nullptr;
+    }
+
+    T operator *() const {
+        if(!hasNext()){
+            std::cout<<"The element is last";
+        }else return current->data;
+    }
+
+    void operator ++(){
+        if (!hasNext()) {
+            std::cout<<"No more elements in the stack";
+        }else current = current->next.get();
+    }
+
+    void operator !=(const T& value) const{
+        if(!hasNext()){
+            std::cout<<"The element is last";
+        }else return current->data!=value;
     }
 };
 

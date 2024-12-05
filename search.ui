@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>search</class>
+ <widget class="QDialog" name="search">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>493</width>
+    <height>383</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>159</y>
+     <width>471</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout"/>
+  </widget>
+  <widget class="QLineEdit" name="year">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>40</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="month">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>80</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="search_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>120</y>
+     <width>83</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>search</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="day">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>120</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="hour">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>40</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="minute">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>80</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>year</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>month</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>day</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>40</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>hour</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>80</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>minute</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

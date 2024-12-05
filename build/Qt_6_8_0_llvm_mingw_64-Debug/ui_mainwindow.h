@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
@@ -40,16 +41,25 @@ public:
     QSpacerItem *horizontalSpacer_5;
     QPushButton *cancelMove;
     QSpacerItem *horizontalSpacer_6;
+    QPushButton *search;
+    QSpacerItem *horizontalSpacer_7;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *label;
-    QVBoxLayout *verticalLayout_Entry;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
     QLabel *label_2;
+    QScrollArea *scrollArea_2;
+    QWidget *scrollAreaWidgetContents_2;
     QVBoxLayout *verticalLayout_Note;
     QLabel *label_3;
+    QScrollArea *scrollArea_3;
+    QWidget *scrollAreaWidgetContents_3;
     QVBoxLayout *verticalLayout_Task;
     QLabel *label_4;
     QVBoxLayout *verticalLayout_Event;
+    QScrollArea *scrollArea_4;
+    QWidget *scrollAreaWidgetContents_4;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -57,12 +67,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(800, 674);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
-        horizontalLayoutWidget->setGeometry(QRect(40, 460, 721, 80));
+        horizontalLayoutWidget->setGeometry(QRect(40, 460, 721, 211));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -115,9 +125,18 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_6);
 
+        search = new QPushButton(horizontalLayoutWidget);
+        search->setObjectName("search");
+
+        horizontalLayout->addWidget(search);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_7);
+
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(39, 19, 721, 441));
+        verticalLayoutWidget->setGeometry(QRect(39, 19, 721, 498));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -126,15 +145,30 @@ public:
 
         verticalLayout->addWidget(label);
 
-        verticalLayout_Entry = new QVBoxLayout();
-        verticalLayout_Entry->setObjectName("verticalLayout_Entry");
+        scrollArea = new QScrollArea(verticalLayoutWidget);
+        scrollArea->setObjectName("scrollArea");
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 717, 83));
+        scrollArea->setWidget(scrollAreaWidgetContents);
 
-        verticalLayout->addLayout(verticalLayout_Entry);
+        verticalLayout->addWidget(scrollArea);
 
         label_2 = new QLabel(verticalLayoutWidget);
         label_2->setObjectName("label_2");
 
         verticalLayout->addWidget(label_2);
+
+        scrollArea_2 = new QScrollArea(verticalLayoutWidget);
+        scrollArea_2->setObjectName("scrollArea_2");
+        scrollArea_2->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName("scrollAreaWidgetContents_2");
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 717, 83));
+        scrollArea_2->setWidget(scrollAreaWidgetContents_2);
+
+        verticalLayout->addWidget(scrollArea_2);
 
         verticalLayout_Note = new QVBoxLayout();
         verticalLayout_Note->setObjectName("verticalLayout_Note");
@@ -145,6 +179,16 @@ public:
         label_3->setObjectName("label_3");
 
         verticalLayout->addWidget(label_3);
+
+        scrollArea_3 = new QScrollArea(verticalLayoutWidget);
+        scrollArea_3->setObjectName("scrollArea_3");
+        scrollArea_3->setWidgetResizable(true);
+        scrollAreaWidgetContents_3 = new QWidget();
+        scrollAreaWidgetContents_3->setObjectName("scrollAreaWidgetContents_3");
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 717, 83));
+        scrollArea_3->setWidget(scrollAreaWidgetContents_3);
+
+        verticalLayout->addWidget(scrollArea_3);
 
         verticalLayout_Task = new QVBoxLayout();
         verticalLayout_Task->setObjectName("verticalLayout_Task");
@@ -160,6 +204,16 @@ public:
         verticalLayout_Event->setObjectName("verticalLayout_Event");
 
         verticalLayout->addLayout(verticalLayout_Event);
+
+        scrollArea_4 = new QScrollArea(verticalLayoutWidget);
+        scrollArea_4->setObjectName("scrollArea_4");
+        scrollArea_4->setWidgetResizable(true);
+        scrollAreaWidgetContents_4 = new QWidget();
+        scrollAreaWidgetContents_4->setObjectName("scrollAreaWidgetContents_4");
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 717, 83));
+        scrollArea_4->setWidget(scrollAreaWidgetContents_4);
+
+        verticalLayout->addWidget(scrollArea_4);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -183,6 +237,7 @@ public:
         enterEvent->setText(QCoreApplication::translate("MainWindow", "enterEvent", nullptr));
         enterNote->setText(QCoreApplication::translate("MainWindow", "enterNote", nullptr));
         cancelMove->setText(QCoreApplication::translate("MainWindow", "cancelMove", nullptr));
+        search->setText(QCoreApplication::translate("MainWindow", "search", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Entry", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Note", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Task", nullptr));

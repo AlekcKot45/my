@@ -21,48 +21,48 @@ QT_BEGIN_NAMESPACE
 class Ui_EnterEventWindow
 {
 public:
-    QPushButton *enterData;
+    QLabel *label_6;
+    QLabel *label_8;
     QLineEdit *date;
-    QLineEdit *time;
     QLineEdit *text;
+    QPushButton *enterData;
+    QLabel *label_4;
     QLineEdit *place;
-    QLabel *label;
-    QLabel *label_2;
-    QLabel *label_3;
-    QLabel *label_5;
+    QLabel *label_7;
+    QLineEdit *time;
 
     void setupUi(QDialog *EnterEventWindow)
     {
         if (EnterEventWindow->objectName().isEmpty())
             EnterEventWindow->setObjectName("EnterEventWindow");
         EnterEventWindow->resize(400, 300);
-        enterData = new QPushButton(EnterEventWindow);
-        enterData->setObjectName("enterData");
-        enterData->setGeometry(QRect(130, 240, 83, 29));
+        label_6 = new QLabel(EnterEventWindow);
+        label_6->setObjectName("label_6");
+        label_6->setGeometry(QRect(100, 170, 63, 20));
+        label_8 = new QLabel(EnterEventWindow);
+        label_8->setObjectName("label_8");
+        label_8->setGeometry(QRect(100, 90, 63, 20));
         date = new QLineEdit(EnterEventWindow);
         date->setObjectName("date");
-        date->setGeometry(QRect(210, 40, 113, 28));
-        time = new QLineEdit(EnterEventWindow);
-        time->setObjectName("time");
-        time->setGeometry(QRect(210, 80, 113, 28));
+        date->setGeometry(QRect(180, 50, 113, 28));
         text = new QLineEdit(EnterEventWindow);
         text->setObjectName("text");
-        text->setGeometry(QRect(210, 120, 113, 28));
+        text->setGeometry(QRect(180, 130, 113, 28));
+        enterData = new QPushButton(EnterEventWindow);
+        enterData->setObjectName("enterData");
+        enterData->setGeometry(QRect(150, 240, 83, 29));
+        label_4 = new QLabel(EnterEventWindow);
+        label_4->setObjectName("label_4");
+        label_4->setGeometry(QRect(100, 50, 63, 20));
         place = new QLineEdit(EnterEventWindow);
         place->setObjectName("place");
-        place->setGeometry(QRect(210, 200, 113, 28));
-        label = new QLabel(EnterEventWindow);
-        label->setObjectName("label");
-        label->setGeometry(QRect(100, 80, 63, 20));
-        label_2 = new QLabel(EnterEventWindow);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(90, 50, 63, 20));
-        label_3 = new QLabel(EnterEventWindow);
-        label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(100, 130, 63, 20));
-        label_5 = new QLabel(EnterEventWindow);
-        label_5->setObjectName("label_5");
-        label_5->setGeometry(QRect(100, 200, 63, 20));
+        place->setGeometry(QRect(180, 170, 113, 28));
+        label_7 = new QLabel(EnterEventWindow);
+        label_7->setObjectName("label_7");
+        label_7->setGeometry(QRect(100, 130, 63, 20));
+        time = new QLineEdit(EnterEventWindow);
+        time->setObjectName("time");
+        time->setGeometry(QRect(180, 90, 113, 28));
 
         retranslateUi(EnterEventWindow);
 
@@ -72,11 +72,17 @@ public:
     void retranslateUi(QDialog *EnterEventWindow)
     {
         EnterEventWindow->setWindowTitle(QCoreApplication::translate("EnterEventWindow", "Dialog", nullptr));
+        label_6->setText(QCoreApplication::translate("EnterEventWindow", "place", nullptr));
+        label_8->setText(QCoreApplication::translate("EnterEventWindow", "time", nullptr));
+        date->setText(QString());
+        date->setPlaceholderText(QCoreApplication::translate("EnterEventWindow", "yyyy.mm.dd", nullptr));
+        text->setText(QString());
         enterData->setText(QCoreApplication::translate("EnterEventWindow", "PushButton", nullptr));
-        label->setText(QCoreApplication::translate("EnterEventWindow", "time", nullptr));
-        label_2->setText(QCoreApplication::translate("EnterEventWindow", "date", nullptr));
-        label_3->setText(QCoreApplication::translate("EnterEventWindow", "text", nullptr));
-        label_5->setText(QCoreApplication::translate("EnterEventWindow", "place", nullptr));
+        label_4->setText(QCoreApplication::translate("EnterEventWindow", "date", nullptr));
+        place->setText(QString());
+        label_7->setText(QCoreApplication::translate("EnterEventWindow", "text", nullptr));
+        time->setText(QString());
+        time->setPlaceholderText(QCoreApplication::translate("EnterEventWindow", "hh:mm", nullptr));
     } // retranslateUi
 
 };

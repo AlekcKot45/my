@@ -17,6 +17,7 @@
 #include "entereventwindow.h"
 #include "entertaskwindow.h"
 #include "enternotewindow.h"
+#include "search.h"
 
 class Entry;
 class Note;
@@ -62,6 +63,8 @@ private slots:
     void on_enterNote_clicked();
 
     void on_cancelMove_clicked();
+
+    void on_search_clicked();
 
 protected:
     void showEvent(QShowEvent *event) override;

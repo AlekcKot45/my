@@ -8,9 +8,11 @@ release/function.o
 release/main.o
 release/mainwindow.o
 release/objects.o
+release/search.o
 release/moc_enterentrywindow.o
 release/moc_entereventwindow.o
 release/moc_enternotewindow.o
 release/moc_entertaskwindow.o
 release/moc_errorwindow.o
 release/moc_mainwindow.o
+release/moc_search.o
